@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 
 from zadach import views
-from zadach.views import ListSpecApi,ListGroupApi,ListPrepodApi
+from zadach.views import ListSpecApi,ListGroupApi,ListPrepodApi,ListErrorApi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('api/v2/zadach/',ListGroupApi.as_view()),
     path('api/v2/zadach/<int:pk>/',ListGroupApi.as_view()),
     path('api/v3/prepodovatel/', ListPrepodApi.as_view()),
-    path('api/v3/prepodovatel/<int:pk>/',ListPrepodApi.as_view())
+    path('api/v3/prepodovatel/<int:pk>/',ListPrepodApi.as_view()),
+    path('api/v4/error',ListErrorApi.as_view()),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -439,3 +439,9 @@ class Conflict(models.Model):
 
     def __str__(self):
         return f"{self.group_number} - {self.day} - {self.classroom} - {self.subject} - {self.teacher} - Index: {self.index}"
+
+class ListEror(models.Model):
+    title = models.CharField('Название ошибки:', max_length=255)
+
+    def __str__(self):
+        return self.title

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.management import call_command
 from .models import ListSpec, ListGroup, Schedule201, Schedule231, Schedule111, Schedule441, Schedule101, Schedule121, \
     Schedule431, Schedule421, Schedule202, Schedule311, Schedule321, Schedule331, Schedule341, Schedule401, Schedule402, \
-    Schedule411, Schedule302, Schedule301, Schedule241, Schedule221, Schedule211, TimeUR, ListPrepod, Conflict
+    Schedule411, Schedule302, Schedule301, Schedule241, Schedule221, Schedule211, TimeUR, ListPrepod, Conflict,ListEror
 
 
 @admin.action(description='Сделать единый бэкап всей базы данных')
@@ -48,3 +48,4 @@ admin.site.register(Schedule431, BaseAdmin)
 admin.site.register(Schedule441, BaseAdmin)
 admin.site.register(ListPrepod, BaseAdmin)
 admin.site.register(Conflict, BaseAdmin)
+admin.site.register(ListEror, BaseAdmin)

@@ -1,7 +1,7 @@
 from .models import ListSpec, ListGroup, TimeUR, ListPrepod
 from .models import ListSpec,Schedule201,Schedule202,Schedule211,Schedule221,Schedule231,Schedule241,Schedule301,\
     Schedule302,Schedule311,Schedule321,Schedule331,Schedule341,Schedule401,Schedule402,Schedule411,Schedule421, \
-    Schedule431,Schedule441,Schedule101,Schedule121,Schedule111
+    Schedule431,Schedule441,Schedule101,Schedule121,Schedule111,ListEror
 from rest_framework import serializers
 
 class TimeSerializer(serializers.ModelSerializer):
@@ -207,3 +207,7 @@ class ListPrepodSerializer(serializers.ModelSerializer):
         model=ListPrepod
         fields='__all__'
 
+class ListErrorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=ListEror
+        fields='__all__'

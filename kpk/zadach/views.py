@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from .models import ListSpec, Schedule201, ListGroup, Schedule101, Schedule111, Schedule121, Schedule202, Schedule211, \
     Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311, Schedule321, Schedule331, Schedule341, \
-    Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441, ListPrepod, Conflict
+    Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441, ListPrepod, Conflict,ListEror
 from .serializers import ListSpecSerializer, ListGroupSerializer, ScheduleSerializer201, TimeSerializer, \
-    ListPrepodSerializer
+    ListPrepodSerializer , ListErrorSerializer
 from django.db.models import Q
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -189,3 +189,17 @@ def create_conflict(sender, instance, created, **kwargs):
                         classroom=conflict_instance.classroom,
                         subject=combined_subjects  # Записываем объединенные предметы
                     )
+
+
+class ListErrorApi(APIView): # Ошибки с фронта
+    def post(self, request):
+        # Десериализация данных из запроса
+        serializer = ListErrorSerializer(data=request.data)
+
+        # Проверка валидности данных
+        if serializer.is_valid():
+            serializer.save()  # Сохранение ошибки в базе данных
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # Возвращаем ошибки в случае неудачи
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
