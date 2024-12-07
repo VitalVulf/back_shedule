@@ -445,3 +445,10 @@ class ListEror(models.Model):
 
     def __str__(self):
         return self.title
+class News(models.Model):
+    title = models.CharField(max_length=200)  # для заголовка
+    content = models.TextField()  # для текста новости
+    published_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

@@ -1,4 +1,4 @@
-from .models import ListSpec, ListGroup, TimeUR, ListPrepod
+from .models import ListSpec, ListGroup, TimeUR, ListPrepod, News
 from .models import ListSpec,Schedule201,Schedule202,Schedule211,Schedule221,Schedule231,Schedule241,Schedule301,\
     Schedule302,Schedule311,Schedule321,Schedule331,Schedule341,Schedule401,Schedule402,Schedule411,Schedule421, \
     Schedule431,Schedule441,Schedule101,Schedule121,Schedule111,ListEror
@@ -210,4 +210,8 @@ class ListPrepodSerializer(serializers.ModelSerializer):
 class ListErrorSerializer(serializers.ModelSerializer):
     class Meta:
         model=ListEror
+        fields='__all__'
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=News
         fields='__all__'
