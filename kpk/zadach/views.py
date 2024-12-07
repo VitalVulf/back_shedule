@@ -1,6 +1,7 @@
 from django.forms import models
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.timezone import now, timedelta
 from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -207,10 +208,12 @@ class ListErrorApi(APIView): # Ошибки с фронта
 class NewsApi(APIView):
     def get(self, request, pk=None):
         if pk is not None:
-            Nes_obj = get_object_or_404(News, pk=pk)
-            serializer = ListPrepodSerializer(Nes_obj)
+            # Получение одной записи по pk
+            news_obj = get_object_or_404(News, pk=pk)
+            serializer = NewsSerializer(news_obj)
             return Response(serializer.data)
         else:
-            Newsi = News.objects.all()
-            serializer = NewsSerializer(Newsi, many=True)
+            # Фильтрация последних 10 записей по published_at
+            recent_news = News.objects.order_by('-published_at')[:10]
+            serializer = NewsSerializer(recent_news, many=True)
             return Response(serializer.data)
