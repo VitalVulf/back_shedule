@@ -1,11 +1,13 @@
 from django.db import models
 
-
-class TimeUR(models.Model):
-    title = models.CharField('Время урока ', max_length=255)
-
+class Time_subject(models.Model):
+    time = models.CharField("Время урока", max_length=255)
     def __str__(self):
-        return self.title
+        return self.time
+
+    class Meta:
+        verbose_name = "Расписание звонков"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание звонков"  # Название модели во множественном числе
 
 # таблица с уроками 101 группы
 class Schedule101(models.Model):
@@ -18,13 +20,18 @@ class Schedule101(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 101"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 101"  # Название модели во множественном числе
 # таблица 111
 class Schedule111(models.Model):
     DAYS_OF_WEEK = [
@@ -36,13 +43,18 @@ class Schedule111(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 111"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 111"  # Название модели во множественном числе
 # таблица 121
 class Schedule121(models.Model):
     DAYS_OF_WEEK = [
@@ -54,13 +66,18 @@ class Schedule121(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 121"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 121"  # Название модели во множественном числе
 
 class Schedule201(models.Model):
     DAYS_OF_WEEK = [
@@ -72,13 +89,18 @@ class Schedule201(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 201"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 201"  # Название модели во множественном числе
 
 class Schedule202(models.Model):
     DAYS_OF_WEEK = [
@@ -90,13 +112,18 @@ class Schedule202(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 202"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 202"  # Название модели во множественном числе
 
 class Schedule211(models.Model):
     DAYS_OF_WEEK = [
@@ -108,13 +135,18 @@ class Schedule211(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 211"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 221"  # Название модели во множественном числе
 
 class Schedule221(models.Model):
     DAYS_OF_WEEK = [
@@ -126,13 +158,18 @@ class Schedule221(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 221"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 221"  # Название модели во множественном числе
 
 class Schedule231(models.Model):
     DAYS_OF_WEEK = [
@@ -144,13 +181,18 @@ class Schedule231(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 231"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 231"  # Название модели во множественном числе
 
 class Schedule241(models.Model):
     DAYS_OF_WEEK = [
@@ -162,13 +204,18 @@ class Schedule241(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 241"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 241"  # Название модели во множественном числе
 
 class Schedule301(models.Model):
     DAYS_OF_WEEK = [
@@ -180,13 +227,18 @@ class Schedule301(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 301"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 301"  # Название модели во множественном числе
 
 class Schedule302(models.Model):
     DAYS_OF_WEEK = [
@@ -198,13 +250,18 @@ class Schedule302(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 302"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 302"  # Название модели во множественном числе
 
 class Schedule311(models.Model):
     DAYS_OF_WEEK = [
@@ -216,13 +273,18 @@ class Schedule311(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 311"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 311"  # Название модели во множественном числе
 
 
 class Schedule321(models.Model):
@@ -235,13 +297,18 @@ class Schedule321(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 321"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 321"  # Название модели во множественном числе
 
 class Schedule331(models.Model):
     DAYS_OF_WEEK = [
@@ -253,13 +320,18 @@ class Schedule331(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 331"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 331"  # Название модели во множественном числе
 
 class Schedule341(models.Model):
     DAYS_OF_WEEK = [
@@ -271,13 +343,18 @@ class Schedule341(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 341"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 341"  # Название модели во множественном числе
 
 class Schedule401(models.Model):
     DAYS_OF_WEEK = [
@@ -289,13 +366,18 @@ class Schedule401(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 401"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 401"  # Название модели во множественном числе
 
 class Schedule402(models.Model):
     DAYS_OF_WEEK = [
@@ -307,13 +389,18 @@ class Schedule402(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 402"  # Название модели в единственном числе
+        verbose_name_plural = "Расписание 402"  # Название модели во множественном числе
 
 class Schedule411(models.Model):
     DAYS_OF_WEEK = [
@@ -325,13 +412,18 @@ class Schedule411(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 411"  # Название модели в единственном числе
+        verbose_name_plural = "Расписания 411"  # Название модели во множественном числе
 
 class Schedule421(models.Model):
     DAYS_OF_WEEK = [
@@ -343,14 +435,18 @@ class Schedule421(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
 
+    class Meta:
+        verbose_name = "Расписание 421"  # Название модели в единственном числе
+        verbose_name_plural = "Расписания 421"  # Название модели во множественном числе
 class Schedule431(models.Model):
     DAYS_OF_WEEK = [
         ('monday', 'Понедельник'),
@@ -361,13 +457,18 @@ class Schedule431(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 431"  # Название модели в единственном числе
+        verbose_name_plural = "Расписания 431"  # Название модели во множественном числе
 
 class Schedule441(models.Model):
     DAYS_OF_WEEK = [
@@ -379,20 +480,49 @@ class Schedule441(models.Model):
         ('saturday', 'Суббота'),
         ('sunday', 'Воскресенье'),
     ]
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения номера урока
-    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
-    subject = models.CharField(max_length=255)
-    teacher = models.CharField(max_length=255)
-    classroom = models.CharField(max_length=50)
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
         return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 441"  # Название модели в единственном числе
+        verbose_name_plural = "Расписания 441"  # Название модели во множественном числе
+
+class Schedule131(models.Model):
+    DAYS_OF_WEEK = [
+        ('monday', 'Понедельник'),
+        ('tuesday', 'Вторник'),
+        ('wednesday', 'Среда'),
+        ('thursday', 'Четверг'),
+        ('friday', 'Пятница'),
+        ('saturday', 'Суббота'),
+        ('sunday', 'Воскресенье'),
+    ]
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)  # Поле для хранения номера урока
+    day = models.CharField("День", max_length=9, choices=DAYS_OF_WEEK)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    has_changes = models.BooleanField("Изменения", default=False)
+    def __str__(self):
+        return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Расписание 131"  # Название модели в единственном числе
+        verbose_name_plural = "Расписания 131"  # Название модели во множественном числе
 
 # Таблица с группами
 class ListGroup(models.Model):
     title = models.CharField('Название группы', max_length=255)
-    list_par101 = models.ManyToManyField(Schedule101, related_name='schedules',blank=True) # связь с уроками
-    list_par111=models.ManyToManyField(Schedule111, related_name='schedules',blank=True)
-    list_par121=models.ManyToManyField(Schedule121, related_name='schedules',blank=True)
+    list_par101 = models.ManyToManyField(Schedule101, related_name='schedules', blank=True) # связь с уроками
+    list_par111 = models.ManyToManyField(Schedule111, related_name='schedules', blank=True)
+    list_par121 = models.ManyToManyField(Schedule121, related_name='schedules', blank=True)
+    list_par131 = models.ManyToManyField(Schedule131, related_name='schedules', blank=True)
     list_par201 = models.ManyToManyField(Schedule201, related_name='schedules', blank=True)
     list_par202 = models.ManyToManyField(Schedule202, related_name='schedules', blank=True)
     list_par211 = models.ManyToManyField(Schedule211, related_name='schedules', blank=True)
@@ -411,9 +541,14 @@ class ListGroup(models.Model):
     list_par421 = models.ManyToManyField(Schedule421, related_name='schedules', blank=True)
     list_par431 = models.ManyToManyField(Schedule431, related_name='schedules', blank=True)
     list_par441 = models.ManyToManyField(Schedule441, related_name='schedules', blank=True)
-    time = models.ManyToManyField(TimeUR,related_name='schedules', blank=True)
+
+    # Новое поле для расписания звонков на субботу
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Список групп "  # Название модели в единственном числе
+        verbose_name_plural = "Список групп"  # Название модели во множественном числе
 
 # таблица со специальностями
 class ListSpec(models.Model):
@@ -423,10 +558,17 @@ class ListSpec(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Список специальностей"  # Название модели в единственном числе
+        verbose_name_plural = "Список специальностей"  # Название модели во множественном числе
 class ListPrepod(models.Model):
     title = models.CharField('Фамилия И.О. преподавателя:', max_length=255)
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Список преподавателей"  # Название модели в единственном числе
+        verbose_name_plural = "Список преподавателей"  # Название модели во множественном числе
 
 class Conflict(models.Model):
     index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения индекса урока
@@ -436,19 +578,47 @@ class Conflict(models.Model):
     teacher = models.CharField(max_length=255,null=True, blank=True)
     classroom = models.CharField(max_length=50)
 
-
     def __str__(self):
         return f"{self.group_number} - {self.day} - {self.classroom} - {self.subject} - {self.teacher} - Index: {self.index}"
+
+    class Meta:
+        verbose_name = "Конфликт"  # Название модели в единственном числе
+        verbose_name_plural = "Конфликты"  # Название модели во множественном числе
 
 class ListEror(models.Model):
     title = models.CharField('Название ошибки:', max_length=255)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Список ошибок"  # Название модели в единственном числе
+        verbose_name_plural = "Список ошибок"  # Название модели во множественном числе
+
 class News(models.Model):
-    title = models.CharField(max_length=200)  # для заголовка
+    title = models.CharField("Заголовок", max_length=200)  # для заголовка
     content = models.TextField()  # для текста новости
     published_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Список новостей"  # Название модели в единственном числе
+        verbose_name_plural = "Список новостей"  # Название модели во множественном числе
+
+class ChangedSchedule(models.Model):
+    index = models.PositiveIntegerField("Номер урока", null=True, blank=True)
+    day = models.CharField("День", max_length=9)
+    subject = models.CharField("Предмет", max_length=255)
+    teacher = models.CharField("Преподаватель", max_length=255)
+    classroom = models.CharField("Кабинет", max_length=50)
+    change_date = models.DateTimeField("Дата изменения", auto_now_add=True)
+    source_model = models.CharField("Источник", max_length=255,null=True)  # Хранит имя модели-источника
+
+    def __str__(self):
+        return f"{self.day} - {self.subject} {self.teacher} "
+
+    class Meta:
+        verbose_name = "Список изменений"  # Название модели в единственном числе
+        verbose_name_plural = "Список изменений"  # Название модели во множественном числе

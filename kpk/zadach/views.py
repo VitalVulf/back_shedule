@@ -1,19 +1,21 @@
 from django.forms import models
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils.timezone import now, timedelta
 from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
-from .models import ListSpec, Schedule201, ListGroup, Schedule101, Schedule111, Schedule121, Schedule202, Schedule211, \
+from .models import ListSpec, Schedule201, ListGroup, Schedule101, Schedule111, Schedule121, Schedule131, Schedule202, \
+    Schedule211, \
     Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311, Schedule321, Schedule331, Schedule341, \
-    Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441, ListPrepod, Conflict, ListEror, News
-from .serializers import ListSpecSerializer, ListGroupSerializer, ScheduleSerializer201, TimeSerializer, \
-    ListPrepodSerializer, ListErrorSerializer, NewsSerializer
+    Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441, ListPrepod, Conflict, ListEror, News, \
+    Time_subject
+from .serializers import ListSpecSerializer, ListGroupSerializer, ScheduleSerializer201, \
+    ListPrepodSerializer, ListErrorSerializer, NewsSerializer, TimeSerializer
 from django.db.models import Q
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.apps import apps
 
 
 class ListSpecApi(APIView):
@@ -55,6 +57,7 @@ class ListGroupApi(APIView):
                     group_data = {
                         'id': group.id,
                         'title': group.title,
+
                     }
 
                     # Создаем словарь для хранения уроков по полям
@@ -62,12 +65,13 @@ class ListGroupApi(APIView):
 
                     for lesson_field in [
                         'list_par101', 'list_par111', 'list_par121',
-                        'list_par201', 'list_par202', 'list_par211',
-                        'list_par221', 'list_par231', 'list_par241',
-                        'list_par301', 'list_par302', 'list_par311',
-                        'list_par321', 'list_par331', 'list_par341',
-                        'list_par401', 'list_par402', 'list_par411',
-                        'list_par421', 'list_par431', 'list_par441'
+                        'list_par131', 'list_par201', 'list_par202',
+                        'list_par211', 'list_par221', 'list_par231',
+                        'list_par241', 'list_par301', 'list_par302',
+                        'list_par311', 'list_par321', 'list_par331',
+                        'list_par341', 'list_par401', 'list_par402',
+                        'list_par411', 'list_par421', 'list_par431',
+                        'list_par441'
                     ]:
                         # Получаем связанные уроки для каждого поля
                         related_lessons = getattr(group, lesson_field).filter(teacher__icontains=teacher_name)
@@ -77,44 +81,42 @@ class ListGroupApi(APIView):
                             serialized_lessons = ScheduleSerializer201(related_lessons, many=True).data
                             lessons_dict[lesson_field] = serialized_lessons
 
-                    # Получаем время предмета
-                    related_times = group.time.all()
-                    serialized_times = TimeSerializer(related_times, many=True).data
-
                     # Если есть отфильтрованные уроки, добавляем их в группу
                     if lessons_dict:
                         group_data.update(lessons_dict)  # Обновляем group_data с уроками
-                        group_data['time'] = serialized_times  # Добавляем время
                         filtered_groups.append(group_data)
 
                 return Response(filtered_groups)
 
             serializer = ListGroupSerializer(list_group, many=True)
             return Response(serializer.data)
+
+
 class ListPrepodApi(APIView):
     # Отображение всех задач
     def get(self, request, pk=None):
         if pk is not None:
             ListPrepod_obj = get_object_or_404(ListPrepod, pk=pk)
-            serializer = ListPrepodSerializer( ListPrepod_obj)
+            serializer = ListPrepodSerializer(ListPrepod_obj)
             return Response(serializer.data)
         else:
             ListPrepodi = ListPrepod.objects.all()
             serializer = ListPrepodSerializer(ListPrepodi, many=True)
             return Response(serializer.data)
 
+
 # проверка на совпадение в расписание
 @receiver(pre_save)
 def check_for_conflicts(sender, instance, **kwargs):
-    if sender in [Schedule101, Schedule111, Schedule201, Schedule121, Schedule202, Schedule211,
+    if sender in [Schedule101, Schedule111, Schedule201, Schedule121, Schedule131, Schedule202, Schedule211,
                   Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311,
                   Schedule321, Schedule331, Schedule341,
                   Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441]:
 
         # Получаем все модели расписания
-        schedule_models = [Schedule101, Schedule111, Schedule201, Schedule121, Schedule202, Schedule211,
-                           Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311,
-                           Schedule321, Schedule331, Schedule341,
+        schedule_models = [Schedule101, Schedule111, Schedule201, Schedule121, Schedule131, Schedule202,
+                           Schedule211, Schedule221, Schedule231, Schedule241, Schedule301, Schedule302,
+                           Schedule311, Schedule321, Schedule331, Schedule341,
                            Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441]
 
         # Сравниваем с аналогичными записями в других моделях
@@ -132,7 +134,7 @@ def check_for_conflicts(sender, instance, **kwargs):
                         classroom=conflict_instance.classroom,
                         subject=combined_subjects  # Записываем объединенные предметы
                     )
- # конфликт по препод
+        # конфликт по препод
         for model in schedule_models:
             if model != sender:
                 conflicts1 = model.objects.filter(day=instance.day, teacher=instance.teacher, index=instance.index)
@@ -147,11 +149,12 @@ def check_for_conflicts(sender, instance, **kwargs):
                         teacher=conflict_instance.teacher
                     )
 
+
 @receiver(post_save)
 def create_conflict(sender, instance, created, **kwargs):
-    if created and sender in [Schedule101, Schedule111, Schedule201, Schedule121, Schedule202, Schedule211,
-                              Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311,
-                              Schedule321, Schedule331, Schedule341,
+    if created and sender in [Schedule101, Schedule111, Schedule201, Schedule121, Schedule131, Schedule202,
+                              Schedule211, Schedule221, Schedule231, Schedule241, Schedule301, Schedule302,
+                              Schedule311, Schedule321, Schedule331, Schedule341,
                               Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441]:
         day = instance.day
         classroom = instance.classroom
@@ -159,9 +162,9 @@ def create_conflict(sender, instance, created, **kwargs):
         teacher = instance.teacher
 
         # Получаем все модели расписания
-        schedule_models = [Schedule101, Schedule111, Schedule201, Schedule121, Schedule202, Schedule211,
-                           Schedule221, Schedule231, Schedule241, Schedule301, Schedule302, Schedule311,
-                           Schedule321, Schedule331, Schedule341,
+        schedule_models = [Schedule101, Schedule111, Schedule201, Schedule121, Schedule131, Schedule202,
+                           Schedule211, Schedule221, Schedule231, Schedule241, Schedule301, Schedule302,
+                           Schedule311, Schedule321, Schedule331, Schedule341,
                            Schedule401, Schedule402, Schedule411, Schedule421, Schedule431, Schedule441]
 
         # Сравниваем с аналогичными записями в других моделях
@@ -192,7 +195,7 @@ def create_conflict(sender, instance, created, **kwargs):
                     )
 
 
-class ListErrorApi(APIView): # Ошибки с фронта
+class ListErrorApi(APIView):  # Ошибки с фронта
     def post(self, request):
         # Десериализация данных из запроса
         serializer = ListErrorSerializer(data=request.data)
@@ -205,15 +208,56 @@ class ListErrorApi(APIView): # Ошибки с фронта
         # Возвращаем ошибки в случае неудачи
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class NewsApi(APIView):
     def get(self, request, pk=None):
         if pk is not None:
-            # Получение одной записи по pk
-            news_obj = get_object_or_404(News, pk=pk)
-            serializer = NewsSerializer(news_obj)
+            Nes_obj = get_object_or_404(News, pk=pk)
+            serializer = ListPrepodSerializer(Nes_obj)
             return Response(serializer.data)
         else:
-            # Фильтрация последних 10 записей по published_at
-            recent_news = News.objects.order_by('-published_at')[:10]
-            serializer = NewsSerializer(recent_news, many=True)
+            Newsi = News.objects.all()
+            serializer = NewsSerializer(Newsi, many=True)
             return Response(serializer.data)
+
+
+class Time_subjectsApi(APIView):
+    def get(self, request, pk=None):
+        if pk is not None:
+            time_obj = get_object_or_404(News, pk=pk)
+            serializer = TimeSerializer(time_obj)
+            return Response(serializer.data)
+        else:
+            times = Time_subject.objects.all()
+            serializer = TimeSerializer(times, many=True)
+            return Response(serializer.data)
+
+
+# Список моделей, для которых нужно обработать изменения
+SCHEDULE_MODELS = [
+    "Schedule101", "Schedule111", "Schedule121", "Schedule131",
+    "Schedule201", "Schedule202", "Schedule211", "Schedule221",
+    "Schedule231", "Schedule241", "Schedule301", "Schedule302",
+    "Schedule311", "Schedule321", "Schedule331", "Schedule341",
+    "Schedule401", "Schedule402", "Schedule411", "Schedule421",
+    "Schedule431", "Schedule441"
+]
+
+
+@receiver(post_save)
+def handle_schedule_changes(sender, instance, **kwargs):
+    # Проверяем, относится ли модель к списку
+    if sender.__name__ in SCHEDULE_MODELS and instance.has_changes:
+        # Получаем модель ChangedSchedule через apps (универсальный подход)
+        ChangedSchedule = apps.get_model('zadach', 'ChangedSchedule')
+
+        # Создаем запись в ChangedSchedule
+        ChangedSchedule.objects.create(
+            index=instance.index,
+            day=instance.day,
+            subject=instance.subject,
+            teacher=instance.teacher,
+            classroom=instance.classroom,
+            source_model=sender.__name__  # Указываем имя модели-источника
+        )
+

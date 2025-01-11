@@ -1,13 +1,10 @@
-from .models import ListSpec, ListGroup, TimeUR, ListPrepod, News
+from .models import ListSpec, ListGroup,ListPrepod
 from .models import ListSpec,Schedule201,Schedule202,Schedule211,Schedule221,Schedule231,Schedule241,Schedule301,\
     Schedule302,Schedule311,Schedule321,Schedule331,Schedule341,Schedule401,Schedule402,Schedule411,Schedule421, \
-    Schedule431,Schedule441,Schedule101,Schedule121,Schedule111,ListEror
+    Schedule431,Schedule441,Schedule101,Schedule121,Schedule111,ListEror,Schedule131,News,Time_subject
 from rest_framework import serializers
 
-class TimeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TimeUR
-        fields = '__all__'
+
 # уроки
 class ScheduleSerializer101(serializers.ModelSerializer):
     class Meta:
@@ -117,10 +114,16 @@ class ScheduleSerializer441(serializers.ModelSerializer):
     class Meta:
         model = Schedule441
         fields = '__all__'
+
+class ScheduleSerializer131(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule131
+        fields = '__all__'
 class ListGroupSerializer(serializers.ModelSerializer):
-    list_par101 =ScheduleSerializer101(many=True, read_only=True) # связь с уроками
+    list_par101 = ScheduleSerializer101(many=True, read_only=True) # связь с уроками
     list_par111 = ScheduleSerializer111(many=True, read_only=True)
     list_par121 = ScheduleSerializer121(many=True, read_only=True)
+    list_par131 = ScheduleSerializer131(many=True, read_only=True)
     list_par201 = ScheduleSerializer201(many=True, read_only=True)
     list_par202 = ScheduleSerializer202(many=True, read_only=True)
     list_par211 = ScheduleSerializer211(many=True, read_only=True)
@@ -139,13 +142,11 @@ class ListGroupSerializer(serializers.ModelSerializer):
     list_par421 = ScheduleSerializer421(many=True, read_only=True)
     list_par431 = ScheduleSerializer431(many=True, read_only=True)
     list_par441 = ScheduleSerializer441(many=True, read_only=True)
-    time = TimeSerializer(many=True, read_only=True)
-
     class Meta:
         model=ListGroup
-        fields=('id', 'title', 'list_par101','list_par111', 'list_par121', 'list_par201', 'list_par202', 'list_par211',
+        fields=('id', 'title', 'list_par101','list_par111', 'list_par121','list_par131', 'list_par201', 'list_par202', 'list_par211',
                 'list_par221', 'list_par231', 'list_par241','list_par301' ,'list_par302' ,'list_par311','list_par321',
-                'list_par331' ,'list_par341' ,'list_par401','list_par402','list_par411','list_par421','list_par431','list_par441','time')
+                'list_par331' ,'list_par341' ,'list_par401','list_par402','list_par411','list_par421','list_par431', 'list_par441')
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -156,6 +157,8 @@ class ListGroupSerializer(serializers.ModelSerializer):
             representation.pop('list_par111')
         if not representation['list_par121']:
             representation.pop('list_par121')
+        if not representation['list_par131']:
+            representation.pop('list_par131')
         if not representation['list_par201']:
             representation.pop('list_par201')
         if not representation['list_par202']:
@@ -192,8 +195,7 @@ class ListGroupSerializer(serializers.ModelSerializer):
             representation.pop('list_par431')
         if not representation['list_par441']:
             representation.pop('list_par441')
-        if not representation['time']:
-            representation.pop('time')
+
         return representation
 class ListSpecSerializer(serializers.ModelSerializer):
     groups = ListGroupSerializer(many=True, read_only=True)
@@ -211,7 +213,13 @@ class ListErrorSerializer(serializers.ModelSerializer):
     class Meta:
         model=ListEror
         fields='__all__'
+
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model=News
         fields='__all__'
+
+class TimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Time_subject
+        fields = '__all__'
