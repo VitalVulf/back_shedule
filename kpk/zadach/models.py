@@ -27,7 +27,7 @@ class Schedule101(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 101"  # Название модели в единственном числе
@@ -50,7 +50,7 @@ class Schedule111(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+       return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 111"  # Название модели в единственном числе
@@ -73,7 +73,7 @@ class Schedule121(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 121"  # Название модели в единственном числе
@@ -96,7 +96,7 @@ class Schedule201(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 201"  # Название модели в единственном числе
@@ -119,7 +119,7 @@ class Schedule202(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 202"  # Название модели в единственном числе
@@ -142,11 +142,10 @@ class Schedule211(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
-
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
     class Meta:
         verbose_name = "Расписание 211"  # Название модели в единственном числе
-        verbose_name_plural = "Расписание 221"  # Название модели во множественном числе
+        verbose_name_plural = "Расписание 211"  # Название модели во множественном числе
 
 class Schedule221(models.Model):
     DAYS_OF_WEEK = [
@@ -165,7 +164,7 @@ class Schedule221(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 221"  # Название модели в единственном числе
@@ -188,7 +187,7 @@ class Schedule231(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 231"  # Название модели в единственном числе
@@ -211,7 +210,7 @@ class Schedule241(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 241"  # Название модели в единственном числе
@@ -234,7 +233,7 @@ class Schedule301(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 301"  # Название модели в единственном числе
@@ -257,7 +256,7 @@ class Schedule302(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 302"  # Название модели в единственном числе
@@ -280,8 +279,7 @@ class Schedule311(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
-
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
     class Meta:
         verbose_name = "Расписание 311"  # Название модели в единственном числе
         verbose_name_plural = "Расписание 311"  # Название модели во множественном числе
@@ -304,7 +302,7 @@ class Schedule321(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 321"  # Название модели в единственном числе
@@ -327,7 +325,7 @@ class Schedule331(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 331"  # Название модели в единственном числе
@@ -350,7 +348,7 @@ class Schedule341(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 341"  # Название модели в единственном числе
@@ -373,7 +371,7 @@ class Schedule401(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 401"  # Название модели в единственном числе
@@ -396,7 +394,7 @@ class Schedule402(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 402"  # Название модели в единственном числе
@@ -419,7 +417,7 @@ class Schedule411(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 411"  # Название модели в единственном числе
@@ -442,8 +440,7 @@ class Schedule421(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
-
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
     class Meta:
         verbose_name = "Расписание 421"  # Название модели в единственном числе
         verbose_name_plural = "Расписания 421"  # Название модели во множественном числе
@@ -464,7 +461,7 @@ class Schedule431(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 431"  # Название модели в единственном числе
@@ -487,7 +484,7 @@ class Schedule441(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 441"  # Название модели в единственном числе
@@ -510,7 +507,7 @@ class Schedule131(models.Model):
     classroom = models.CharField("Кабинет", max_length=50)
     has_changes = models.BooleanField("Изменения", default=False)
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.get_day_display()} - {self.index} - {self.subject} - {self.teacher} - {self.classroom}"
 
     class Meta:
         verbose_name = "Расписание 131"  # Название модели в единственном числе
@@ -571,15 +568,25 @@ class ListPrepod(models.Model):
         verbose_name_plural = "Список преподавателей"  # Название модели во множественном числе
 
 class Conflict(models.Model):
-    index = models.PositiveIntegerField(null=True, blank=True)  # Поле для хранения индекса урока
+    DAYS_OF_WEEK = [
+        ('monday', 'Понедельник'),
+        ('tuesday', 'Вторник'),
+        ('wednesday', 'Среда'),
+        ('thursday', 'Четверг'),
+        ('friday', 'Пятница'),
+        ('saturday', 'Суббота'),
+        ('sunday', 'Воскресенье'),
+    ]
+
+    index = models.PositiveIntegerField(null=True, blank=True)
     group_number = models.CharField(max_length=50)
-    day = models.CharField(max_length=9)
-    subject = models.CharField(max_length=100,null=True, blank=True)
-    teacher = models.CharField(max_length=255,null=True, blank=True)
+    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)  # Добавили choices!
+    subject = models.CharField(max_length=100, null=True, blank=True)
+    teacher = models.CharField(max_length=255, null=True, blank=True)
     classroom = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.group_number} - {self.day} - {self.classroom} - {self.subject} - {self.teacher} - Index: {self.index}"
+        return f"{self.group_number} - {self.get_day_display()} - {self.classroom} - {self.subject} - {self.teacher} - Index: {self.index}"
 
     class Meta:
         verbose_name = "Конфликт"  # Название модели в единственном числе
@@ -608,8 +615,17 @@ class News(models.Model):
         verbose_name_plural = "Список новостей"  # Название модели во множественном числе
 
 class ChangedSchedule(models.Model):
+    DAYS_OF_WEEK = [
+        ('monday', 'Понедельник'),
+        ('tuesday', 'Вторник'),
+        ('wednesday', 'Среда'),
+        ('thursday', 'Четверг'),
+        ('friday', 'Пятница'),
+        ('saturday', 'Суббота'),
+        ('sunday', 'Воскресенье'),
+    ]
     index = models.PositiveIntegerField("Номер урока", null=True, blank=True)
-    day = models.CharField("День", max_length=9)
+    day = models.CharField(max_length=9, choices=DAYS_OF_WEEK)  # Добавили choices!
     subject = models.CharField("Предмет", max_length=255)
     teacher = models.CharField("Преподаватель", max_length=255)
     classroom = models.CharField("Кабинет", max_length=50)
@@ -617,7 +633,7 @@ class ChangedSchedule(models.Model):
     source_model = models.CharField("Источник", max_length=255,null=True)  # Хранит имя модели-источника
 
     def __str__(self):
-        return f"{self.day} - {self.subject} {self.teacher} "
+        return f"{self.source_model} - {self.get_day_display()} - {self.classroom} - {self.subject} - {self.teacher} - Index: {self.index}"
 
     class Meta:
         verbose_name = "Список изменений"  # Название модели в единственном числе
